@@ -1,0 +1,3 @@
+C:/Users/Gavr/source/repos/CPP-Reflection-master/CPP-Reflection-master/Source/Runtime/CMakeFiles/MetaRuntime.dir
+C:/Users/Gavr/source/repos/CPP-Reflection-master/CPP-Reflection-master/Source/Runtime/CMakeFiles/ALL_BUILD.dir
+C:/Users/Gavr/source/repos/CPP-Reflection-master/CPP-Reflection-master/Source/Runtime/CMakeFiles/ZERO_CHECK.dir

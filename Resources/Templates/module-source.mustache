@@ -1,0 +1,68 @@
+/* ----------------------------------------------------------------------------
+** GENERATED SOURCE FILE
+** Do not modify the contents of this file.
+**
+** Ursine Meta Generator v{{version}}
+** --------------------------------------------------------------------------*/
+{{#usingPrecompiledHeader}}#include "{{precompiledHeader}}"
+{{/usingPrecompiledHeader}}
+
+#include "{{moduleHeaderFile}}"
+
+///////////////////////////////////////////////////////////////////////////////
+// Module Files
+///////////////////////////////////////////////////////////////////////////////
+
+{{#moduleFile}}
+#include "{{& header}}"{{/moduleFile}}
+
+namespace m = ursine::meta;
+
+meta_generated::Module{{targetName}}::Module{{targetName}}(m::ReflectionDatabase &db)
+    : ReflectionModule( db )
+{
+    ///////////////////////////////////////////////////////////////////////////
+    // External Allocation
+    ///////////////////////////////////////////////////////////////////////////
+    {{#external}}
+    {
+            auto decayed_id = db.AllocateType( "{{& displayName}}" );
+
+		{ // Base Type
+            auto &type = db.types[ decayed_id ];
+
+            m::TypeInfo<{{& qualifiedName}}>::Register( decayed_id, type, true, decayed_id );
+        }
+        {{#ptrTypeEnabled}}
+        { // Pointer Type
+            auto id = db.AllocateType( "{{& displayName}}*" );
+            auto &type = db.types[ id ];
+
+            m::TypeInfo<{{& qualifiedName}}*>::Register( id, type, false, decayed_id );
+        }
+        {{/ptrTypeEnabled}}
+        {{#constPtrTypeEnabled}}
+        { // Const Pointer Type
+            auto id = db.AllocateType( "const {{& displayName}}*" );
+            auto &type = db.types[ id ];
+
+            m::TypeInfo<const {{& qualifiedName}}*>::Register( id, type, false, decayed_id );
+        }
+        {{/constPtrTypeEnabled}}
+    }
+    {{/external}}
+    ///////////////////////////////////////////////////////////////////////////
+    // Module File Allocation
+    ///////////////////////////////////////////////////////////////////////////
+    {{#moduleFile}}
+    AllocateModuleFile{{targetName}}{{& name}}( db );{{/moduleFile}}
+}
+
+meta_generated::Module{{targetName}}::~Module{{targetName}}(void)
+{
+    ///////////////////////////////////////////////////////////////////////////
+    // Module File Definition
+    ///////////////////////////////////////////////////////////////////////////
+    {{#moduleFile}}
+    DefineModuleFile{{targetName}}{{& name}}( db );{{/moduleFile}}
+}
